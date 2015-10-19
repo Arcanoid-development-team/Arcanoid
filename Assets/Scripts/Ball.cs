@@ -2,10 +2,12 @@
 using System.Collections;
 
 public class Ball : Collidable {
-    public int speed = 1;
+
+    public float speed;
 
     protected Rigidbody2D rb = null;
 
+    // Use this for initialization
     void Awake()
     {
         this.rb = this.GetComponent<Rigidbody2D>();
