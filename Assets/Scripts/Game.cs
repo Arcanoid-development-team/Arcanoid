@@ -4,10 +4,13 @@ using System.Collections;
 public class Game : MonoBehaviour {
 
     public Field field;
+    public Player mainPlayer = null;
 
     // Use this for initialization
     void Awake () 
     {
+        mainPlayer = new Player(field.paddles[0]); /* Нужно добавить возможность выбора доски */
+
         // set up a same inital speed vector for all balls
         foreach (Ball ball in field.balls)
         {
@@ -19,6 +22,8 @@ public class Game : MonoBehaviour {
     // Update is called once per frame
     void Update () 
     {
+        mainPlayer.HandleControl();
+
         // Debug field, actual speed of all balls
         foreach (Ball ball in field.balls)
         {
