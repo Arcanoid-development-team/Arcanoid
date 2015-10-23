@@ -11,7 +11,7 @@ public class Game : MonoBehaviour {
         // set up the same inital speed vector for all balls
         foreach (Ball ball in field.balls)
         {
-            ball.Velocity = new Vector2(-10.0f,0.0f);    // set direction and speed
+            ball.Velocity = new Vector2(1.0f,-10.0f);    // set direction and speed
             ball.Speed = 5.0f;                          // adjust speed
         }
     }
