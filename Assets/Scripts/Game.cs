@@ -5,6 +5,7 @@ public class Game : MonoBehaviour {
 
     public Field field;
     public Player mainPlayer = null;
+    private ControlListener controlListener = null;    
 
     // Use this for initialization
     void Awake () 
@@ -17,11 +18,14 @@ public class Game : MonoBehaviour {
             ball.Velocity = new Vector2(-10.0f,0.0f);    // set direction and speed
             ball.Speed = 5.0f;                          // adjust speed
         }
+
+        controlListener = new ControlListener();
+        controlListener.AddControl("Horizontal", field.paddles[0].Move);          
     }
 	
     // Update is called once per frame
     void Update () 
     {
-        mainPlayer.HandleControl();
+        controlListener.CheckControls();
     }
 }
