@@ -9,16 +9,4 @@ public class Player
     {
         playerPaddle = paddle;
     }
-
-
-    public void HandleControl()
-    {
-        int dir = (int)(Input.GetAxisRaw("Horizontal"));
-
-        if (dir != 0)
-        {
-            playerPaddle.Move(dir);
-        }
-    }
-	
 }
