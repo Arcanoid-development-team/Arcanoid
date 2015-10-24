@@ -12,7 +12,7 @@ GameObject:
   - 50: {fileID: 5094666}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127f0d8194fcb08499ed493adce6d72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  DbgActualSpeed: 0
+  DbgActualVelocity: {x: 0, y: 0}
 --- !u!114 &11493984
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,6 +177,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: BallSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
