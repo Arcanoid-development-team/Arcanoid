@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ControlListener {
 
     List<ControlEntry> controls;
-    public delegate bool Handler(int input);
+    public delegate void Handler(int input);
 
     public ControlListener()
     {
