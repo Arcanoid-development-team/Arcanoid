@@ -12,7 +12,7 @@ public class Game : MonoBehaviour {
     {
         mainPlayer = new Player(field.paddles[0]); /* Нужно добавить возможность выбора доски */
 
-        // set up a same inital speed vector for all balls
+        // set up a same inital speed vector for all balls        
         foreach (Ball ball in field.balls)
         {
             ball.Velocity = new Vector2(1.0f,-10.0f);    // set direction and speed
