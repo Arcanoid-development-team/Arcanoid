@@ -4,4 +4,5 @@ using System.Collections.Generic;
 
 public class Field : Collidable {
     public List<Ball> balls;
+    public List<Paddle> paddles;
 }
