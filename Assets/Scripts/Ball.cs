@@ -6,9 +6,12 @@ namespace Assets.Scripts
     {
         private Rigidbody2D _rigidBody;
         private float _speed;
-
-        public float DbgActualSpeed;
-        public Vector2 DbgActualVelocity;
+        private readonly GameObjectDebugger _objectDebugger;
+        
+        public Ball()
+        {
+            _objectDebugger = new GameObjectDebugger(this);
+        }
 
         public float Speed
         {
@@ -16,9 +19,7 @@ namespace Assets.Scripts
             set
             {
                 _speed = value;
-                RigidBody.velocity = Velocity.normalized * _speed; 
-
-                UpdateDbgInfo();
+                RigidBody.velocity = Velocity.normalized * _speed;
             }
         }
         
@@ -28,9 +29,7 @@ namespace Assets.Scripts
             set
             {
                 RigidBody.velocity = value;
-                _speed = value.magnitude;  
-
-                UpdateDbgInfo();
+                _speed = value.magnitude;
             }
         }
 
@@ -38,18 +37,12 @@ namespace Assets.Scripts
         {
             Velocity = Velocity.normalized * Speed;
 
-            UpdateDbgInfo();
+            _objectDebugger.UpdateDebugInfo("Столкновение закончено");
         }
 
         private Rigidbody2D RigidBody
         {
             get { return _rigidBody ?? (_rigidBody = GetComponent<Rigidbody2D>()); }
-        }
-
-        private void UpdateDbgInfo()
-        {
-            DbgActualSpeed = Velocity.magnitude;
-            DbgActualVelocity = Velocity;
         }
     }
 }
