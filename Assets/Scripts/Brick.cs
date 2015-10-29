@@ -1,42 +1,45 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Brick : Collidable
+namespace Assets.Scripts
 {
-    // Use this for initialization
-    void Awake()
+    public class Brick : MonoBehaviour, ICollidable
     {
-        HitPoints = InitialHitPoints;   // get InitialHitPoints from Unity editor
-    }
-    
-    // Property: hitpoints of a brick
-    int HitPoints
-    {
-        get { return _hitPoints; }
-        set 
-        {
-            _hitPoints = value;
-            DbgHitPoints = value;
-            if (_hitPoints <= 0)
-            {
-                Destroy(this.gameObject);       // deletes brick from scene
-            }
-            // draw different sprite depending on the remaining hitpoints of the brick
-            if (_hitPoints == 2)
-                this.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/BrickSpriteCracked");
-            if (_hitPoints == 1)
-                this.GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>("Images/BrickSpriteRuined");
-        }
-    }
-    private int _hitPoints;         // actual hitpoints
-    public int InitialHitPoints;    // for initialization of hitpoints in unity editor
-    public int DbgHitPoints;        // dbg display hitpoints speed to Unity editor
+        private int _hitPoints;
 
-    // Is called when brick has stopped touching another rigidbody/collider
-    override public void onCollisionExit(Collision2D collision)
-    {
-        // the only way to get the class of incoming object is to use tags
-        if (collision.gameObject.tag == "Ball")
-            HitPoints--;
+        public int InitialHitPoints;
+        public int DbgHitPoints;
+        
+        public void CollisionExit(Collision2D collision)
+        {
+            if (collision.gameObject.tag == "Ball")
+                HitPoints--;
+        }
+        private int HitPoints
+        {
+            get { return _hitPoints; }
+            set
+            {
+                _hitPoints = value;
+                DbgHitPoints = value;
+
+                //Магические константы это тоже плохо. Но это уберется после запила анимации.
+                if (_hitPoints <= 0)
+                    Destroy(gameObject);
+
+                if (_hitPoints == 2)
+                    SetSprite("Images/BrickSpriteCracked");
+
+                if (_hitPoints == 1)
+                    SetSprite("Images/BrickSpriteRuined");
+            }
+        }
+        private void SetSprite(string pathToSprite)
+        {
+            GetComponentInChildren<SpriteRenderer>().sprite = Resources.Load<Sprite>(pathToSprite);
+        }
+        private void Awake()
+        {
+            HitPoints = InitialHitPoints; 
+        }
     }
 }
