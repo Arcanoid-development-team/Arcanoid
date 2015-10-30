@@ -1,52 +1,56 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
-    public class ControlListener {
-
-        List<ControlEntry> controls;
-        public delegate void Handler(int input);
-
-        public ControlListener()
-        {
-            controls = new List<ControlEntry>();
-        }
-
-        public void AddControl(String axisKey, Handler handler)
-        {        
-            ControlEntry entry = new ControlEntry(axisKey, handler);        
-            controls.Add(entry);
-        }
-
+    public class ControlListener
+    {
+        public event EventHandler<AxisRawEventArgs> HorisontalAxisRawChanged;
+        public event EventHandler<AxisRawEventArgs> VerticalAxisRawChanged;
+        
         public void CheckControls()
         {
-            foreach (ControlEntry control in controls)
-            {            
-                control.handler((int)(Input.GetAxisRaw(control.axisKey)));
-            }
-        }
+            OnHorisontalAxisRawChanged(new AxisRawEventArgs
+            {
+                AxisRaw = (int) Input.GetAxisRaw(AxisOrientation.Horizontal.ToString())
+            });
 
-        private class ControlEntry
+            OnVerticalAxisRawChanged(new AxisRawEventArgs
+            {
+                AxisRaw = (int) Input.GetAxisRaw(AxisOrientation.Vertical.ToString())
+            });
+        }
+        
+        private void OnHorisontalAxisRawChanged(AxisRawEventArgs e)
         {
-            private String _axisKey;
-            private Handler _handler;
-
-            public ControlEntry(String axisKey, Handler handler)
+            var hendler = HorisontalAxisRawChanged;
+            if (hendler != null)
             {
-                this._axisKey = axisKey;
-                this._handler = handler;
-            }
-
-            public String axisKey
-            {
-                get {return _axisKey;}
-            }
-            public Handler handler
-            {
-                get {return _handler;}
+                hendler(this, e);
             }
         }
+
+        private void OnVerticalAxisRawChanged(AxisRawEventArgs e)
+        {
+            var hendler = VerticalAxisRawChanged;
+            if (hendler != null)
+            {
+                hendler(this, e);
+            }
+        }
+    }
+
+    public class AxisRawEventArgs : EventArgs
+    {
+        public int AxisRaw { get; set; }
+    }
+
+    public enum AxisOrientation
+    {
+        Unknown = 0,
+        Horizontal,
+        Vertical
     }
 }

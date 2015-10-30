@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -19,12 +20,18 @@ namespace Assets.Scripts
                 ball.Velocity = new Vector2(1.0f,-10.0f); 
                 ball.Speed = 5.0f;                
             }
-            
-            _controlListener.AddControl("Horizontal", Field.Paddles.First().Move);          
+
+            _controlListener.HorisontalAxisRawChanged += ChangePaddlePosition;
         }
+        
         private void Update () 
         {
             _controlListener.CheckControls();
+        }
+
+        private void ChangePaddlePosition(object sender, AxisRawEventArgs axisRawEventArgs)
+        {
+            Field.Paddles.First().Move(axisRawEventArgs.AxisRaw);
         }
     }
 }
