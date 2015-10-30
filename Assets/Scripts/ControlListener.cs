@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Assets.Scripts
 {
     public class ControlListener
     {
-        public readonly Dictionary<EAxisOrientation, EventHandler<AxisRawEventArgs>> AxisRowChanged = 
-            new Dictionary <EAxisOrientation, EventHandler<AxisRawEventArgs>>
+        public readonly Dictionary<EAxisName, EventHandler<AxisRawEventArgs>> AxisRowChanged = 
+            new Dictionary <EAxisName, EventHandler<AxisRawEventArgs>>
         {
-            {EAxisOrientation.Horizontal, null},
-            {EAxisOrientation.Vertical, null}
+            {EAxisName.Horizontal, null},
+            {EAxisName.Vertical, null},
+            {EAxisName.FireBall, null}
         };
         
         public void CheckControls()
@@ -36,7 +36,7 @@ namespace Assets.Scripts
         {
             if (handler != null)
             {
-                handler(this, e);
+                handler(null, e);
             }
         }
     }
@@ -46,10 +46,11 @@ namespace Assets.Scripts
         public int AxisRaw { get; set; }
     }
     
-    public enum EAxisOrientation
+    public enum EAxisName
     {
         Unknown = 0,
         Horizontal,
-        Vertical
+        Vertical,
+        FireBall
     }
 }

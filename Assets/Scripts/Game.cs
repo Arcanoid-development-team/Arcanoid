@@ -21,7 +21,7 @@ namespace Assets.Scripts
                 ball.Speed = 5.0f;                
             }
 
-            _controlListener.AxisRowChanged[EAxisOrientation.Horizontal] += ChangePaddlePosition;
+            _controlListener.AxisRowChanged[EAxisName.Horizontal] += ChangePaddlePosition;
         }
         
         private void Update () 
@@ -31,7 +31,7 @@ namespace Assets.Scripts
 
         private void ChangePaddlePosition(object sender, AxisRawEventArgs axisRawEventArgs)
         {
-            Field.Paddles.First().Move(axisRawEventArgs.AxisRaw);
+            MainPlayer.Paddle.Move(axisRawEventArgs.AxisRaw);
         }
     }
 }

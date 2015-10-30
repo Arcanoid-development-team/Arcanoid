@@ -2,10 +2,15 @@
 {
     public class Player
     {
-        private readonly Paddle _playerPaddle;
+        private readonly Paddle _paddle;
         public Player(Paddle paddle)
         {
-            _playerPaddle = paddle;
+            _paddle = paddle;
+        }
+
+        public Paddle Paddle
+        {
+            get { return _paddle; }
         }
     }
 }
