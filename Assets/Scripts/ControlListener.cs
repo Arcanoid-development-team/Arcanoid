@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,37 +8,35 @@ namespace Assets.Scripts
 {
     public class ControlListener
     {
-        public event EventHandler<AxisRawEventArgs> HorisontalAxisRawChanged;
-        public event EventHandler<AxisRawEventArgs> VerticalAxisRawChanged;
+        public readonly Dictionary<EAxisOrientation, EventHandler<AxisRawEventArgs>> AxisRowChanged = 
+            new Dictionary <EAxisOrientation, EventHandler<AxisRawEventArgs>>
+        {
+            {EAxisOrientation.Horizontal, null},
+            {EAxisOrientation.Vertical, null}
+        };
         
         public void CheckControls()
         {
-            OnHorisontalAxisRawChanged(new AxisRawEventArgs
-            {
-                AxisRaw = (int) Input.GetAxisRaw(AxisOrientation.Horizontal.ToString())
-            });
-
-            OnVerticalAxisRawChanged(new AxisRawEventArgs
-            {
-                AxisRaw = (int) Input.GetAxisRaw(AxisOrientation.Vertical.ToString())
-            });
+            CheckAxis();
         }
-        
-        private void OnHorisontalAxisRawChanged(AxisRawEventArgs e)
+
+        private void CheckAxis()
         {
-            var hendler = HorisontalAxisRawChanged;
-            if (hendler != null)
+            foreach (var axis in AxisRowChanged.Where(x => x.Value != null))
             {
-                hendler(this, e);
+                OnAxisRawChanged(new AxisRawEventArgs
+                {
+                    AxisRaw = (int) Input.GetAxisRaw(axis.Key.ToString())
+                }, 
+                axis.Value);
             }
         }
-
-        private void OnVerticalAxisRawChanged(AxisRawEventArgs e)
+        
+        private void OnAxisRawChanged(AxisRawEventArgs e, EventHandler<AxisRawEventArgs> handler)
         {
-            var hendler = VerticalAxisRawChanged;
-            if (hendler != null)
+            if (handler != null)
             {
-                hendler(this, e);
+                handler(this, e);
             }
         }
     }
@@ -46,8 +45,8 @@ namespace Assets.Scripts
     {
         public int AxisRaw { get; set; }
     }
-
-    public enum AxisOrientation
+    
+    public enum EAxisOrientation
     {
         Unknown = 0,
         Horizontal,

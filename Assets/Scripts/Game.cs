@@ -21,7 +21,7 @@ namespace Assets.Scripts
                 ball.Speed = 5.0f;                
             }
 
-            _controlListener.HorisontalAxisRawChanged += ChangePaddlePosition;
+            _controlListener.AxisRowChanged[EAxisOrientation.Horizontal] += ChangePaddlePosition;
         }
         
         private void Update () 
