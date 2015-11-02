@@ -47,10 +47,10 @@ namespace Assets.Scripts
 
         private PropertyInfo[] GetProperties()
         {
-            var gameObjecttProperties = _gameObject.GetType().GetProperties();
+            var gameObjectProperties = _gameObject.GetType().GetProperties();
             var basetProperties = typeof(MonoBehaviour).GetProperties();
 
-            return gameObjecttProperties.Where(x => basetProperties.All(p => p.Name != x.Name)).ToArray();
+            return gameObjectProperties.Where(x => basetProperties.All(p => p.Name != x.Name)).ToArray();
         }
     }
 }

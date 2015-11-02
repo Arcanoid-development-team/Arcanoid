@@ -12,7 +12,7 @@ namespace Assets.Scripts
         {
             {EAxisName.Horizontal, null},
             {EAxisName.Vertical, null},
-            {EAxisName.FireBall, null}
+            {EAxisName.LaunchBall, null}
         };
         
         public void CheckControls()
@@ -51,6 +51,6 @@ namespace Assets.Scripts
         Unknown = 0,
         Horizontal,
         Vertical,
-        FireBall
+        LaunchBall
     }
 }

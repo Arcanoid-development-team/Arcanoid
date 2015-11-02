@@ -20,7 +20,7 @@ namespace Assets.Scripts
             if (collision.gameObject.tag == "Ball")
                 HitPoints--;
         }
-        public int HitPoints
+        private int HitPoints
         {
             get { return _hitPoints; }
             set
