@@ -1,50 +1,56 @@
-using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-public class ControlListener {
-
-    List<ControlEntry> controls;
-    public delegate void Handler(int input);
-
-    public ControlListener()
+namespace Assets.Scripts
+{
+    public class ControlListener
     {
-        controls = new List<ControlEntry>();
+        public readonly Dictionary<EAxisName, EventHandler<AxisRawEventArgs>> AxisRowChanged = 
+            new Dictionary <EAxisName, EventHandler<AxisRawEventArgs>>
+        {
+            {EAxisName.Horizontal, null},
+            {EAxisName.Vertical, null},
+            {EAxisName.FireBall, null}
+        };
+        
+        public void CheckControls()
+        {
+            CheckAxis();
+        }
+
+        private void CheckAxis()
+        {
+            foreach (var axis in AxisRowChanged.Where(x => x.Value != null))
+            {
+                OnAxisRawChanged(new AxisRawEventArgs
+                {
+                    AxisRaw = (int) Input.GetAxisRaw(axis.Key.ToString())
+                }, 
+                axis.Value);
+            }
+        }
+        
+        private void OnAxisRawChanged(AxisRawEventArgs e, EventHandler<AxisRawEventArgs> handler)
+        {
+            if (handler != null)
+            {
+                handler(null, e);
+            }
+        }
     }
 
-    public void AddControl(String axisKey, Handler handler)
-    {        
-        ControlEntry entry = new ControlEntry(axisKey, handler);        
-        controls.Add(entry);
-    }
-
-    public void CheckControls()
+    public class AxisRawEventArgs : EventArgs
     {
-        foreach (ControlEntry control in controls)
-        {            
-            control.handler((int)(Input.GetAxisRaw(control.axisKey)));
-        }
+        public int AxisRaw { get; set; }
     }
-
-    private class ControlEntry
+    
+    public enum EAxisName
     {
-        private String _axisKey;
-        private Handler _handler;
-
-        public ControlEntry(String axisKey, Handler handler)
-        {
-            this._axisKey = axisKey;
-            this._handler = handler;
-        }
-
-        public String axisKey
-        {
-            get {return _axisKey;}
-        }
-        public Handler handler
-        {
-            get {return _handler;}
-        }
+        Unknown = 0,
+        Horizontal,
+        Vertical,
+        FireBall
     }
 }

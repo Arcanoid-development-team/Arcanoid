@@ -1,8 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Field : Collidable {
-    public List<Ball> balls;
-    public List<Paddle> paddles;
+namespace Assets.Scripts
+{
+    public class Field : MonoBehaviour
+    {
+        public List<Ball> Balls;
+        public List<Paddle> Paddles;
+    }
 }
