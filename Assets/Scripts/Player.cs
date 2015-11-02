@@ -1,12 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class Player
+﻿namespace Assets.Scripts
 {
-    private Paddle playerPaddle = null;
-
-    public Player(Paddle paddle)
+    public class Player
     {
-        playerPaddle = paddle;
+        private readonly Paddle _paddle;
+        public Player(Paddle paddle)
+        {
+            _paddle = paddle;
+        }
+
+        public Paddle Paddle
+        {
+            get { return _paddle; }
+        }
     }
 }

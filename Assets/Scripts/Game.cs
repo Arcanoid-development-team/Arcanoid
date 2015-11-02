@@ -1,31 +1,37 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
-public class Game : MonoBehaviour {
-
-    public Field field;
-    public Player mainPlayer = null;
-    private ControlListener controlListener = null;    
-
-    // Use this for initialization
-    void Awake () 
+namespace Assets.Scripts
+{
+    public class Game : MonoBehaviour
     {
-        mainPlayer = new Player(field.paddles[0]); /* Нужно добавить возможность выбора доски */
+        private readonly ControlListener _controlListener = new ControlListener();
 
-        // set up a same inital speed vector for all balls
-        foreach (Ball ball in field.balls)
+        public Field Field;
+        public Player MainPlayer;
+        private void Awake () 
         {
-            ball.Velocity = new Vector2(1.0f,-10.0f);    // set direction and speed
-            ball.Speed = 5.0f;                          // adjust speed
+            //todo: Нужно добавить возможность выбора доски
+            MainPlayer = new Player(Field.Paddles.First());
+            
+            foreach (Ball ball in Field.Balls)
+            {
+                ball.Velocity = new Vector2(1.0f,-10.0f); 
+                ball.Speed = 5.0f;                
+            }
+
+            _controlListener.AxisRowChanged[EAxisName.Horizontal] += ChangePaddlePosition;
+        }
+        
+        private void Update () 
+        {
+            _controlListener.CheckControls();
         }
 
-        controlListener = new ControlListener();
-        controlListener.AddControl("Horizontal", field.paddles[0].Move);          
-    }
-	
-    // Update is called once per frame
-    void Update () 
-    {
-        controlListener.CheckControls();
+        private void ChangePaddlePosition(object sender, AxisRawEventArgs axisRawEventArgs)
+        {
+            MainPlayer.Paddle.Move(axisRawEventArgs.AxisRaw);
+        }
     }
 }

@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2925cb98448cc04d92d15343d6c936e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  field: {fileID: 1854371692}
+  Field: {fileID: 1854371692}
 --- !u!4 &1573483238
 Transform:
   m_ObjectHideFlags: 0
@@ -615,7 +615,15 @@ Prefab:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Balls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
       propertyPath: paddles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Paddles.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 421766, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
@@ -700,6 +708,26 @@ Prefab:
       objectReference: {fileID: 1461068688}
     - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
       propertyPath: paddles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1502483880}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Balls.Array.data[0]
+      value: 
+      objectReference: {fileID: 1356062828}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Balls.Array.data[1]
+      value: 
+      objectReference: {fileID: 1988965220}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Balls.Array.data[2]
+      value: 
+      objectReference: {fileID: 1206455116}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Paddles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1461068688}
+    - target: {fileID: 11423258, guid: 31050a0cab36f014ba31c3d24a08bb88, type: 2}
+      propertyPath: Paddles.Array.data[1]
       value: 
       objectReference: {fileID: 1502483880}
     m_RemovedComponents: []
